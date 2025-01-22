@@ -26,17 +26,18 @@ export const CartSlice = createSlice({
             state.totalQuantity -= item.quantity;
             state.items = state.items.filter(item => item.name !== action.payload.name);
         }
+        
     },
     updateQuantity: (state, action) => {
         const { name, quantity } = action.payload;
         const itemToUpdate = state.items.find(item => item.name === name);
         if (itemToUpdate) {
-          itemToUpdate.quantity = quantity;
-          const diff = quantity - itemToUpdate.quantity;
-          state.totalQuantity += diff;
+            const diff = quantity - itemToUpdate.quantity; // Calculate the difference first
+            itemToUpdate.quantity = quantity; // Update the quantity
+            state.totalQuantity += diff; // Adjust the totalQuantity
         }
-    
     },
+    
   },
 });
 
